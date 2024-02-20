@@ -6,11 +6,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ApplicationBootstrapOptions } from './common/interfaces/application-bootstrap-options.interface';
 import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [
     CoreModule,
-    CqrsModule.forRoot(), // 👈 add CqrsModule.forRoot()
+    CqrsModule.forRoot(),
+    SharedModule, // 👈 add CqrsModule.forRoot()
   ],
   controllers: [AppController],
   providers: [AppService],
