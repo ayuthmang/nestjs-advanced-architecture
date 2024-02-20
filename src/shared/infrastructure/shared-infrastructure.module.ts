@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { EventStore } from 'src/shared/application/ports/event-store';
 import { EVENT_STORE_CONNECTION } from '../../core/core.constants';
 import { EventDeserializer } from './event-store/deserializers/event.deserializer';
 import { EventsBridge } from './event-store/events-bridge';
@@ -21,6 +22,11 @@ import { EventSerializer } from './event-store/serializers/event.serializer';
     MongoEventStore,
     EventsBridge, // 👈
     EventDeserializer, // 👈
+    {
+      provide: EventStore, // 👈
+      useExisting: MongoEventStore, // 👈
+    },
   ],
+  exports: [EventStore],
 })
 export class SharedInfrastructureModule {}

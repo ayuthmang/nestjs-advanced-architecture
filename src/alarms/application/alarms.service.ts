@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { AcknowledgeAlarmCommand } from './commands/acknowledge-alarm.command';
 import { CreateAlarmCommand } from './commands/create-alarm.command';
 import { GetAlarmsQuery } from './queries/get-alarms.query';
 
@@ -16,5 +17,10 @@ export class AlarmsService {
 
   findAll() {
     return this.queryBus.execute(new GetAlarmsQuery()); // 👈
+  }
+
+  acknowledge(id: string) {
+    // 👈
+    return this.commandBus.execute(new AcknowledgeAlarmCommand(id));
   }
 }
